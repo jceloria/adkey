@@ -1,32 +1,17 @@
-= Web UI for changing LDAP password
+= Web UI for changing SSH keys stored in LDAP / Samba 4 / AD
 Jakub Jirutka <https://github.com/jirutka[@jirutka]>
+John Celoria <https://github.com/jceloria[@jirutka]>
 //custom
-:proj-name: ldap-passwd-webui
-:gh-name: jirutka/{proj-name}
+:proj-name: ldap-ssh-key-webui
+:gh-name: jceloria/{proj-name}
 :wikip-url: https://en.wikipedia.org/wiki
 :pypi-url: https://pypi.python.org/pypi
 
-The aim of this project is to provide a very simple web form for users to be able to change their password stored in LDAP or Active Directory (Samba 4 AD).
+The aim of this project is to provide a very simple web form for users to be able to change their SSH key stored in LDAP or Active Directory (Samba 4 AD).
 It’s built with http://bottlepy.org[Bottle], a WSGI micro web-framework for Python.
 
 
 == Installation
-
-=== Alpine Linux
-
-. Install package *ldap-passwd-webui-waitress* from the Alpine’s community repository:
-+
-[source, sh]
-apk add ldap-passwd-webui-waitress
-+
-IMPORTANT: This package is in Alpine stable since v3.7. You can also install it from _edge_ (unstable) branch.
-
-. Adjust configuration in `/etc/ldap-passwd-webui.ini` and `/etc/conf.d/`.
-
-. Start service ldap-passwd-webui:
-+
-[source]
-/etc/init.d/ldap-passwd-webui start
 
 === Manually
 
@@ -52,8 +37,6 @@ Read the next sections to learn how to run it.
 
 Configuration is read from the file link:settings.ini.example[settings.ini].
 You may change location of the settings file using the environment variable `CONF_FILE`.
-
-If you have Active Directory (or Samba 4 AD), then you *must* use encrypted connection (i.e. LDAPS or StartTLS) – AD doesn’t allow changing password via unencrypted connection.
 
 
 == Run it
