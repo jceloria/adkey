@@ -1,16 +1,19 @@
 [html]
-page_title = Change your password on example.org
+page_title = Change your SSH public key on example.org
 
 [ldap]
+# privileged account credentials
+user = Administrator
+pass = changeme
+# LDAP/AD server options
 host = localhost
 port = 636
 use_ssl = true
 base = ou=People,dc=example,dc=org
 search_filter = uid={uid}
-
-# Uncomment for AD / Samba 4
+# uncomment for AD / Samba 4
 #type = ad
-#ad_domain = ad.example.org
+#ad_domain = example.org
 #search_filter = sAMAccountName={uid}
 
 [server]

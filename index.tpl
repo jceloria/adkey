@@ -19,18 +19,13 @@
         <label for="username">Username</label>
         <input id="username" name="username" value="{{ get('username', '') }}" type="text" required autofocus>
 
-        <label for="old-password">Old password</label>
-        <input id="old-password" name="old-password" type="password" required>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required>
 
-        <label for="new-password">New password</label>
-        <input id="new-password" name="new-password" type="password"
-            pattern=".{8,}" oninvalid="SetCustomValidity('Password must be at least 8 characters long.')" required>
+        <label for="ssh-pubkey">SSH public key</label>
+        <input id="ssh-pubkey" name="ssh-pubkey" type="text" required>
 
-        <label for="confirm-password">Confirm new password</label>
-        <input id="confirm-password" name="confirm-password" type="password"
-            pattern=".{8,}" oninvalid="SetCustomValidity('Password must be at least 8 characters long.')" required>
-
-        <button type="submit">Update password</button>
+        <button type="submit">Update SSH public key</button>
       </form>
 
       <div class="alerts">
