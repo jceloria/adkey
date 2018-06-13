@@ -1,3 +1,5 @@
 bottle >= 0.12.8
 ldap3 >= 2.0, < 3.0
 configparser; python_version < '3.3'
+python-magic >= 0.4
+pycrypto >= 2.5

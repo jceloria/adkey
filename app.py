@@ -12,6 +12,8 @@ from ldap3.core.exceptions import LDAPBindError, LDAPConstraintViolationResult, 
 import logging
 import os
 from os import environ, path
+from tempfile import TemporaryDirectory
+from Crypto.PublicKey import RSA
 
 
 BASE_DIR = path.dirname(__file__)
@@ -32,11 +34,19 @@ def post_index():
     def error(msg):
         return index_tpl(username=form('username'), alerts=[('error', msg)])
 
-    if len(form('ssh-pubkey').split()) < 2:
-        return error("SSH public key is not in OpenSSH format!")
+    try:
+        upload = request.files.get('ssh-prikey')
+        with TemporaryDirectory() as save_path:
+            upload.save(save_path)
+            encoded_key = open(os.path.join(save_path, upload.filename), "rb").read()
+            key = RSA.importKey(encoded_key, passphrase=form('passphrase'))
+            ssh_pubkey = key.publickey().export_key('OpenSSH')
+    except ValueError as e:
+        LOG.error("Unable to decrypt private key for %s: %s" % (form('username'), e))
+        return error(str("Unable to decrypt private key"))
 
     try:
-        change_ssh_pubkey(form('username'), form('password'), form('ssh-pubkey'))
+        change_ssh_pubkey(form('username'), form('password'), ssh_pubkey)
     except Error as e:
         LOG.warning("Unsuccessful attempt to change SSH public key for %s: %s" % (form('username'), e))
         return error(str(e))
@@ -95,14 +105,15 @@ def change_ssh_pubkey_ldap(username, passwd, pubkey):
     # Note: raises LDAPUserNameIsMandatoryError when user_dn is None.
     with connect_ldap(authentication=SIMPLE, user=user_dn, password=passwd) as c:
         c.bind()
-        print(user_dn)
+        print("Not implemented yet")
 
 
 def change_ssh_pubkey_ad(username, passwd, pubkey):
     user = username + '@' + CONF['ldap']['ad_domain']
     root = CONF['ldap']['user'] + '@' + CONF['ldap']['ad_domain']
-    pubkey = ' '.join(pubkey.split()[:2] + [username])
+    pubkey = ' '.join(pubkey.decode().split()[:2] + [username])
 
+    # Bind as the requesting user to fetch user_dn
     with connect_ldap(authentication=SIMPLE, user=user, password=passwd) as c:
         c.bind()
         user_dn = find_user_dn(c, username)

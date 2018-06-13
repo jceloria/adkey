@@ -15,17 +15,20 @@
     <main>
       <h1>{{ page_title }}</h1>
 
-      <form method="post">
+      <form method="post" enctype="multipart/form-data">
         <label for="username">Username</label>
         <input id="username" name="username" value="{{ get('username', '') }}" type="text" required autofocus>
 
         <label for="password">Password</label>
         <input id="password" name="password" type="password" required>
 
-        <label for="ssh-pubkey">SSH public key</label>
-        <input id="ssh-pubkey" name="ssh-pubkey" type="text" required>
+        <label for="ssh-prikey">SSH private key</label>
+        <input id="ssh-prikey" name="ssh-prikey" type="file" required>
 
-        <button type="submit">Update SSH public key</button>
+        <label for="passphrase">Private key passphrase</label>
+        <input id="password" name="passphrase" type="password" required>
+
+        <button type="submit">Update SSH key</button>
       </form>
 
       <div class="alerts">
