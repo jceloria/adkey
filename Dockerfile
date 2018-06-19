@@ -10,4 +10,6 @@ ADD http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js ./static/
 ADD http://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js ./static/
 
 COPY . .
+
+EXPOSE 8080/tcp
 CMD [ "python", "./app.py" ]
