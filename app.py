@@ -143,7 +143,7 @@ if environ.get('DEBUG'):
 # Set up logging.
 logging.basicConfig(format=LOG_FORMAT)
 LOG.setLevel(logging.INFO)
-LOG.info("Starting ldap-passwd-webui %s" % VERSION)
+LOG.info("Starting ldap-ssh-key-webui %s" % VERSION)
 
 CONF = read_config()
 

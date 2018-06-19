@@ -11,8 +11,8 @@ Manually
 
 Clone this repository and install dependencies:
 
-    git clone git@github.com:{gh-name}.git
-    cd {proj-name}
+    git clone git@github.com:jceloria/ldap-ssh-key-webui.git
+    cd ldap-ssh-key-webui
     pip install -r requirements.txt
 
 Read the next sections to learn how to run it.
@@ -63,7 +63,7 @@ host may be changed in [settings.ini](settings.ini.example).
 Run with Waitress
 -----------------
 
-    cd {proj-name}
+    cd ldap-ssh-key-webui
     waitress-serve --listen=*:8080 app:application
 
 Run with uWSGI and nginx
@@ -84,7 +84,7 @@ and with a single socket.
     processes = 1
     threads = 2
     # map URI paths to applications
-    mount = /admin/{proj-name}={proj-name}/app.py
+    mount = /admin/ldap-ssh-key-webui=ldap-ssh-key-webui/app.py
     #mount = /admin/change-world=change-world/app.py
     manage-script-name = true
 
