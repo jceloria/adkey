@@ -12,7 +12,6 @@ from ldap3.core.exceptions import LDAPBindError, LDAPConstraintViolationResult, 
 import logging
 import os
 from os import environ, path
-from tempfile import TemporaryDirectory
 from Crypto.PublicKey import RSA
 
 
@@ -35,12 +34,8 @@ def post_index():
         return index_tpl(username=form('username'), alerts=[('error', msg)])
 
     try:
-        upload = request.files.get('ssh-prikey')
-        with TemporaryDirectory() as save_path:
-            upload.save(save_path)
-            encoded_key = open(os.path.join(save_path, upload.filename), "rb").read()
-            key = RSA.importKey(encoded_key, passphrase=form('passphrase'))
-            ssh_pubkey = key.publickey().export_key('OpenSSH')
+        key = RSA.importKey(form('ssh-prikey'), passphrase=form('passphrase'))
+        ssh_pubkey = key.publickey().export_key('OpenSSH')
     except ValueError as e:
         LOG.error("Unable to decrypt private key for %s: %s" % (form('username'), e))
         return error(str("Unable to decrypt private key"))
