@@ -18,5 +18,5 @@ search_filter = uid={uid}
 
 [server]
 server = auto
-host = localhost
+host = 0.0.0.0
 port = 8080
