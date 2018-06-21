@@ -11,14 +11,14 @@ from ldap3.core.exceptions import LDAPBindError, LDAPConstraintViolationResult, 
     LDAPSocketOpenError, LDAPExceptionError
 import logging
 import os
-from os import environ, path
+from time import time
 from Crypto.PublicKey import RSA
 
 
-BASE_DIR = path.dirname(__file__)
+BASE_DIR = os.path.dirname(__file__)
 LOG = logging.getLogger(__name__)
 LOG_FORMAT = '%(asctime)s %(levelname)s: %(message)s'
-VERSION = '2.0.1'
+VERSION = '1.0.2'
 
 
 @get('/')
@@ -53,7 +53,22 @@ def post_index():
 
 @route('/static/<filename>', name='static')
 def serve_static(filename):
-    return static_file(filename, root=path.join(BASE_DIR, 'static'))
+    return static_file(filename, root=os.path.join(BASE_DIR, 'static'))
+
+
+@route('/health')
+def healthcheck():
+    try:
+        with connect_ldap(authentication=SIMPLE, user=CONF['ldap']['user'], password=CONF['ldap']['pass']) as c:
+            c.bind()
+            bottle.response.status = 200
+            bottle.response.content_type = 'text/plain'
+            return 'OK'
+
+    except (LDAPSocketOpenError, LDAPBindError, LDAPInvalidCredentialsResult):
+        bottle.response.status = 503
+        bottle.response.content_type = 'text/plain'
+        return 'FAILED'
 
 
 def index_tpl(**kwargs):
@@ -106,7 +121,7 @@ def change_ssh_pubkey_ldap(username, passwd, pubkey):
 def change_ssh_pubkey_ad(username, passwd, pubkey):
     user = username + '@' + CONF['ldap']['ad_domain']
     root = CONF['ldap']['user'] + '@' + CONF['ldap']['ad_domain']
-    pubkey = ' '.join(pubkey.decode().split()[:2] + [username])
+    pubkey = ' '.join(pubkey.decode().split()[:2] + [int(time())])
 
     # Bind as the requesting user to fetch user_dn
     with connect_ldap(authentication=SIMPLE, user=user, password=passwd) as c:
@@ -128,7 +143,7 @@ def find_user_dn(conn, uid):
 
 def read_config():
     config = ConfigParser()
-    config.read([path.join(BASE_DIR, 'settings.ini'), os.getenv('CONF_FILE', '')])
+    config.read([os.path.join(BASE_DIR, 'settings.ini'), os.getenv('CONF_FILE', '')])
 
     return config
 
@@ -137,7 +152,7 @@ class Error(Exception):
     pass
 
 
-if environ.get('DEBUG'):
+if os.environ.get('DEBUG'):
     bottle.debug(True)
 
 # Set up logging.
