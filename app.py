@@ -72,7 +72,7 @@ def healthcheck():
     except (LDAPSocketOpenError, LDAPBindError, LDAPInvalidCredentialsResult):
         bottle.response.status = 503
         bottle.response.content_type = 'text/plain'
-        return 'FAILED'
+        return '{} - {}'.format('FAILED', __version__)
 
 
 def index_tpl(**kwargs):
