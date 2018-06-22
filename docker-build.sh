@@ -10,12 +10,12 @@ docker stop ${NAME}
 IMAGES=($(docker images -a | tail -n +2 | awk '$0~/<none>|'"${NAME}"'/{print $3}'))
 
 if [[ ${#IMAGES[@]} -gt 0 ]]; then
-    docker images -a | awk '$0~/REPOSITORY|<none>|'"${NAME}"'/'
-    read -p 'Hit [Enter] to remove above images, [Ctrl-c] to cancel: '
+    [[ $1 =~ -[yY] ]] || docker images -a | awk '$0~/REPOSITORY|<none>|'"${NAME}"'/'
+    [[ $1 =~ -[yY] ]] || read -p 'Hit [Enter] to remove above images, [Ctrl-c] to cancel: '
 
     docker rmi ${IMAGES[@]}
-    read -p 'Hit [Enter] to continue: '
+    [[ $1 =~ -[yY] ]] || read -p 'Hit [Enter] to continue: '
 fi
 
-read -p "Preparing to build ${USER}/${NAME}, hit [Enter] to continue: "
+[[ $1 =~ -[yY] ]] || read -p "Preparing to build ${USER}/${NAME}, hit [Enter] to continue: "
 docker build --rm --no-cache --pull -t ${USER}/${NAME} .
