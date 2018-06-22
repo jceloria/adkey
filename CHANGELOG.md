@@ -1,4 +1,13 @@
-[2.0.1](https://github.com/jceloria/ldap-ssh-key-webui/releases/tag/v2.0.1) (2018-06-11)
+[2.1.2](https://github.com/jceloria/ldap-ssh-key-webui/releases/tag/v2.1.2) (2018-06-21)
+========================================================================================
+
+-   Added Docker support
+
+-   Use different versioning
+
+-   Added healthcheck
+
+[2.1.0](https://github.com/jceloria/ldap-ssh-key-webui/releases/tag/v2.0.1) (2018-06-11)
 ========================================================================================
 
 -   Rename project to ldap-ssh-key-webui.

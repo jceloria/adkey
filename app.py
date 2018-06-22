@@ -13,12 +13,16 @@ import logging
 import os
 from time import time
 from Crypto.PublicKey import RSA
+from pbr.version import VersionInfo
 
 
 BASE_DIR = os.path.dirname(__file__)
 LOG = logging.getLogger(__name__)
 LOG_FORMAT = '%(asctime)s %(levelname)s: %(message)s'
-VERSION = '1.0.2'
+
+_v = VersionInfo('mock').semantic_version()
+__version__ = _v.release_string()
+version_info = _v.version_tuple()
 
 
 @get('/')
@@ -63,7 +67,7 @@ def healthcheck():
             c.bind()
             bottle.response.status = 200
             bottle.response.content_type = 'text/plain'
-            return 'OK'
+            return '{} - {}'.format('OK', __version__)
 
     except (LDAPSocketOpenError, LDAPBindError, LDAPInvalidCredentialsResult):
         bottle.response.status = 503
@@ -158,7 +162,7 @@ if os.environ.get('DEBUG'):
 # Set up logging.
 logging.basicConfig(format=LOG_FORMAT)
 LOG.setLevel(logging.INFO)
-LOG.info("Starting ldap-ssh-key-webui %s" % VERSION)
+LOG.info("Starting ldap-ssh-key-webui %s" % __version__)
 
 CONF = read_config()
 
