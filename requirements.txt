@@ -3,3 +3,4 @@ ldap3 >= 2.0, < 3.0
 configparser; python_version < '3.3'
 pycryptodome >= 3.6
 pbr >= 4.0
+gunicorn >= 19.8

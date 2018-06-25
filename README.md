@@ -11,8 +11,8 @@ Manually
 
 Clone this repository and install dependencies:
 
-    git clone git@github.com:jceloria/ldap-ssh-key-webui.git
-    cd ldap-ssh-key-webui
+    git clone git@github.com:jceloria/adkey.git
+    cd adkey
     pip install -r requirements.txt
 
 Read the next sections to learn how to run it.
@@ -53,9 +53,9 @@ There are multiple ways how to run it:
 Run with the built-in server
 ----------------------------
 
-Simply execute the `app.py`:
+Simply execute the `adkey.py`:
 
-    python3 app.py
+    python3 adkey.py
 
 Then you can access the app on <http://localhost:8080>. The port and
 host may be changed in [settings.ini](settings.ini.example).
@@ -63,7 +63,7 @@ host may be changed in [settings.ini](settings.ini.example).
 Run with Waitress
 -----------------
 
-    cd ldap-ssh-key-webui
+    cd adkey
     waitress-serve --listen=*:8080 app:application
 
 Run with uWSGI and nginx
@@ -84,8 +84,8 @@ and with a single socket.
     processes = 1
     threads = 2
     # map URI paths to applications
-    mount = /admin/ldap-ssh-key-webui=ldap-ssh-key-webui/app.py
-    #mount = /admin/change-world=change-world/app.py
+    mount = /admin/adkey=adkey/adkey.py
+    #mount = /admin/change-world=change-world/adkey.py
     manage-script-name = true
 
 **Sample nginx configuration as a reverse proxy in front of uWSGI:.**

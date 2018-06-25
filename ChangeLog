@@ -1,0 +1,87 @@
+CHANGES
+=======
+
+* renamed to adkey
+* added gunicorn
+* use gunicorn with https, move to alpine
+* pbr requirement
+* add -y
+
+v2.1.3
+------
+
+* added pbr to requirements
+* add version to failed health check
+
+v2.1.2
+------
+
+* updated CHANGELOG
+* use pbr for versioning
+* added healthcheck
+* renamed
+* use alpine image instead
+* listen on all by default for docker
+* update screenshot
+* convert to markdown
+* expose tcp port
+* added trailing slashes
+* Added support for Docker
+* use bootstrap, update css
+* paste ssh key instead of uploading
+* use bootstrap, update css
+* update ignored files
+* update requirements
+* extract public key from encrypted private key
+* updated docs
+* added venv
+* use altSecurityIdentities for ssh public key instead of password
+* Support any browser error message
+* Fix Misspelling in Log Message
+* Handle Generic LDAP Errors
+* Handle LDAP Socket Connection Errors
+* Readme: Add instructions how to install and run on Alpine
+
+v2.0.0
+------
+
+* Release v2.0.0
+* Readme: Add section Run with Waitress
+* Readme: Add Waitress and remove mod\_wsgi from WSGI server tips
+* Remove file VERSION
+* Allow to enable bottle debug mode using env. variable DEBUG
+* Fix code-style
+* Add variable VERSION and log app starting
+* Move variable BASE\_DIR up
+* Use logger module instead of print()
+* Rename repository to ldap-passwd-webui
+* Fix typo StartSSL -> StartTLS
+* Update for ldap3 2.x
+
+v1.0.0
+------
+
+* Release v1.0.0
+* Add Changelog
+* Update Readme, parametrize more strings, remove redundant stuff
+* Update year in License file
+* Fix version constraint for ldap3 to reject incompatible >= 2.0
+* Add example for AD config into settings.ini.example
+* Add configuration key "use\_ssl" for LDAP server
+* Rename settings.ini to settings.ini.example
+* Add configparser to requirements for Legacy Python
+* Readme: add warning about AD and unencrypted connection
+* Fix form encoding, use getunicode() instead of get()
+* Set connection timeout to 5 seconds
+* Show "Username or password is incorrect!" when user is not found
+* Update year in license
+* Add support for ActiveDirectory (Samba 4 AD)
+* Add config option search\_filter
+* Update readme
+* Add robots meta with noindex, nofollow to the page head
+* Update readme
+* Allow to specify settings.ini location using env. variable
+* Allow to configure built-in server via settings.ini
+* Improve logging
+* First working version
+* Initial commit

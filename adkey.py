@@ -9,18 +9,18 @@ from ldap3 import SIMPLE, SUBTREE, MODIFY_REPLACE
 from ldap3.core.exceptions import LDAPBindError, LDAPConstraintViolationResult, \
     LDAPInvalidCredentialsResult, LDAPUserNameIsMandatoryError, \
     LDAPSocketOpenError, LDAPExceptionError
-import logging
-import os
 from time import time
 from Crypto.PublicKey import RSA
 from pbr.version import VersionInfo
+import logging
+import os
 
 
 BASE_DIR = os.path.dirname(__file__)
 LOG = logging.getLogger(__name__)
 LOG_FORMAT = '%(asctime)s %(levelname)s: %(message)s'
 
-_v = VersionInfo('mock').semantic_version()
+_v = VersionInfo(__name__).semantic_version()
 __version__ = _v.release_string()
 version_info = _v.version_tuple()
 
@@ -162,7 +162,7 @@ if os.environ.get('DEBUG'):
 # Set up logging.
 logging.basicConfig(format=LOG_FORMAT)
 LOG.setLevel(logging.INFO)
-LOG.info("Starting ldap-ssh-key-webui %s" % __version__)
+LOG.info("Starting adkey %s" % __version__)
 
 CONF = read_config()
 
