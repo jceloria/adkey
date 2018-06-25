@@ -1,10 +1,15 @@
 CHANGES
 =======
 
+v2.2.0
+------
+
+* remove extra packages
 
 v2.1.4
 ------
 
+* let pbr handle changelog
 * let pbr handle changelog
 * renamed to adkey
 * added gunicorn
