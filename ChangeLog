@@ -1,6 +1,11 @@
 CHANGES
 =======
 
+
+v2.1.4
+------
+
+* let pbr handle changelog
 * renamed to adkey
 * added gunicorn
 * use gunicorn with https, move to alpine
