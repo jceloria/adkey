@@ -125,7 +125,7 @@ def change_ssh_pubkey_ldap(username, passwd, pubkey):
 def change_ssh_pubkey_ad(username, passwd, pubkey):
     user = username + '@' + CONF['ldap']['ad_domain']
     root = CONF['ldap']['user'] + '@' + CONF['ldap']['ad_domain']
-    pubkey = ' '.join(pubkey.decode().split()[:2] + [int(time())])
+    pubkey = ' '.join(pubkey.decode().split()[:2] + [str(int(time()))])
 
     # Bind as the requesting user to fetch user_dn
     with connect_ldap(authentication=SIMPLE, user=user, password=passwd) as c:
